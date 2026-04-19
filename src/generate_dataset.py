@@ -1,10 +1,4 @@
-"""
-generate_dataset.py
--------------------
-Generates a realistic synthetic retail sales dataset for simulation.
-Includes: stores, products, categories, dates, sales, stock levels,
-seasonality patterns, promotions, and demand variation.
-"""
+
 
 import pandas as pd
 import numpy as np
