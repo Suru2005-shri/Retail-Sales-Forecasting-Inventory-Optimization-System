@@ -182,7 +182,7 @@ def run_eda(filepath='data/cleaned_data.csv'):
     plot_promotion_impact(df)
     plot_top_products(df)
 
-    print("\n✅ All EDA charts saved to outputs/graphs/")
+    print("\nAll EDA charts saved to outputs/graphs/")
     return df
 
 
