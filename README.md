@@ -1,4 +1,4 @@
-# 🛒 Retail Sales Forecasting & Inventory Optimization System
+# Retail Sales Forecasting & Inventory Optimization System
 
 > **An end-to-end machine learning system for demand forecasting and intelligent inventory management — built as industry-grade portfolio proof for Data Analyst, Business Analyst, and Data Science roles.**
 
@@ -10,7 +10,7 @@
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 This project simulates a **real-world retail intelligence system** used by companies like DMart, Reliance Retail, Amazon, and Flipkart. It ingests historical sales data, forecasts future demand using machine learning, and recommends optimal inventory decisions — all in an automated, reproducible pipeline.
 
@@ -26,7 +26,7 @@ This project simulates a **real-world retail intelligence system** used by compa
 
 ---
 
-## 🎯 Problem Statement
+##  Problem Statement
 
 Retailers face two critical inventory problems:
 - **Stockouts** → lost sales, unhappy customers, revenue leakage
@@ -36,7 +36,7 @@ Retailers face two critical inventory problems:
 
 ---
 
-## 🏭 Industry Relevance
+##  Industry Relevance
 
 | Company | How They Use This |
 |---|---|
@@ -48,7 +48,7 @@ Retailers face two critical inventory problems:
 
 ---
 
-## 📊 Results Summary
+##  Results Summary
 
 | Metric | Value |
 |---|---|
@@ -63,7 +63,7 @@ Retailers face two critical inventory problems:
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 ```
 Language      : Python 3.10+
@@ -79,7 +79,7 @@ Environment   : Virtual Environment / Conda
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 RAW SALES DATA
@@ -123,7 +123,7 @@ RAW SALES DATA
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 
 ```
 Retail-Sales-Forecasting-Inventory-Optimization/
@@ -165,7 +165,7 @@ Retail-Sales-Forecasting-Inventory-Optimization/
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 ### Step 1: Clone the repository
 ```bash
@@ -204,7 +204,7 @@ streamlit run app/dashboard.py
 
 ---
 
-## 📦 Dataset Details
+##  Dataset Details
 
 The dataset is **synthetically generated** to simulate realistic retail conditions:
 
@@ -222,13 +222,13 @@ The dataset is **synthetically generated** to simulate realistic retail conditio
 | `promotion` | 1 on promotion days (15% of days randomly) |
 
 **Seasonality built-in:**
-- 📈 Electronics/Clothing spike in Oct–Dec (festival season)
-- ☀️ Sports spike in May–June (summer)
-- 🌧️ Groceries boost in Jul–Aug (monsoon)
+-  Electronics/Clothing spike in Oct–Dec (festival season)
+-  Sports spike in May–June (summer)
+-  Groceries boost in Jul–Aug (monsoon)
 
 ---
 
-## 🔮 How to Run (Step by Step)
+##  How to Run (Step by Step)
 
 ```bash
 # Run individual modules
@@ -246,7 +246,7 @@ python main.py
 
 ---
 
-## 📈 Key Formulas Used
+##  Key Formulas Used
 
 ### Safety Stock
 ```
@@ -267,7 +267,7 @@ D = Annual Demand  |  S = Ordering Cost  |  H = Holding Cost
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 *(After running `python main.py`, all charts are saved to `outputs/graphs/`)*
 
@@ -282,7 +282,7 @@ D = Annual Demand  |  S = Ordering Cost  |  H = Holding Cost
 
 ---
 
-## 🔮 Future Improvements
+##  Future Improvements
 
 - [ ] Add XGBoost & Prophet time-series forecasting
 - [ ] Multi-store demand transfer logic
@@ -295,7 +295,7 @@ D = Annual Demand  |  S = Ordering Cost  |  H = Holding Cost
 
 ---
 
-## 📚 Learning Outcomes
+##  Learning Outcomes
 
 After building this project you will understand:
 - End-to-end ML pipeline design for business problems
@@ -307,20 +307,17 @@ After building this project you will understand:
 
 ---
 
-## 👤 Author
+##  Author
 
-**[Your Name]**
-- 🎓 B.Tech / BCA / MCA Student
-- 💼 Aspiring Data Analyst / Business Analyst / Data Scientist
-- 🔗 LinkedIn: [your-linkedin-url]
-- 📧 Email: your@email.com
+**Shruti Srivastava**
+- B.Tech
+- Aspiring Data Analyst / Business Analyst / Data Scientist
+- LinkedIn: www.linkedin.com/in/shruti-srivastava-36b26232a
+
 
 ---
 
-## 📄 License
+##  License
 
 This project is open source under the [MIT License](LICENSE).
 
----
-
-*Built with ❤️ as a portfolio project to demonstrate real-world data science and supply chain analytics skills.*
