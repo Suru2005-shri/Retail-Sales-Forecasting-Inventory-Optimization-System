@@ -1,0 +1,39 @@
+=================================================================
+  RETAIL SALES FORECASTING & INVENTORY OPTIMIZATION
+  EXECUTIVE SUMMARY REPORT
+  Period: 2022-01-01 → 2024-12-31
+=================================================================
+
+📊 BUSINESS KPIs
+  Total Revenue     : ₹2588.33 Crore
+  Total Units Sold  : 4,381,499
+  Avg Daily Revenue : ₹188,929
+  Stockout Rate     : 0.8%
+  Promo Days        : 15.0% of all days
+
+🏪 TOP PERFORMING STORE
+  Store_Pune  →  ₹6218.5M
+
+📦 TOP SELLING CATEGORY
+  Sports  →  964,339 units
+
+🔔 INVENTORY ALERTS
+  SKUs needing reorder  : 56
+  Total reorder value   : ₹32,039,102
+  Overstock SKUs        : 0
+
+  Top 5 Reorder Items:
+    - Wheat Flour (Store_Delhi)  →  Order 1571 units  (₹62,841)
+    - Wheat Flour (Store_Mumbai)  →  Order 1546 units  (₹61,916)
+    - Sugar (Store_Pune)  →  Order 1384 units  (₹62,303)
+    - Milk (Store_Pune)  →  Order 1348 units  (₹74,075)
+    - Milk (Store_Mumbai)  →  Order 1308 units  (₹71,992)
+
+💡 BUSINESS RECOMMENDATIONS
+  1. Increase safety stock for Electronics in Oct–Dec (festival season).
+  2. Run targeted promotions for Grocery items during Jul–Aug.
+  3. Reduce overstock of slow-moving Home & Kitchen items.
+  4. Review supplier lead times to reduce stockout risk below 3%.
+  5. Implement automated reorder triggers at the computed ROP levels.
+
+=================================================================
