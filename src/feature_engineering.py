@@ -86,7 +86,7 @@ def engineer_features(filepath='data/cleaned_data.csv'):
 
     os.makedirs('data', exist_ok=True)
     df_feat.to_csv('data/features.csv', index=False)
-    print(f"\n✅ Feature dataset saved → data/features.csv")
+    print(f"\nFeature dataset saved → data/features.csv")
     print(f"   Shape: {df_feat.shape}")
     print(f"   Features: {[c for c in df_feat.columns if c not in ['date','store','category','product','units_sold']]}")
     return df_feat
