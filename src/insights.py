@@ -72,7 +72,7 @@ def generate_insights_dashboard(
     )
     monthly.sort_values('period', inplace=True)
     ax1.plot(monthly['period'], monthly['revenue'] / 1e6,
-             color='#2563EB', linewidth=2, marker='o', markersize=3)
+    color='#2563EB', linewidth=2, marker='o', markersize=3)
     ax1.fill_between(monthly['period'], monthly['revenue'] / 1e6, alpha=0.1, color='#2563EB')
     ax1.set_title('Monthly Revenue Trend', fontsize=11, fontweight='bold')
     ax1.set_ylabel('Revenue (₹ M)')
@@ -110,8 +110,8 @@ def generate_insights_dashboard(
     ax4 = fig.add_subplot(gs[2, 2])
     ax4.set_facecolor('#FFFFFF')
     risk_counts = df_inv['risk_flag'].value_counts()
-    risk_colors = {'Normal': '#10B981', '⚠️ Reorder Now': '#F59E0B',
-                   '🔴 High Stockout Risk': '#EF4444', '📦 Overstock': '#3B82F6'}
+    risk_colors = {'Normal': '#10B981', 'Reorder Now': '#F59E0B',
+                   'High Stockout Risk': '#EF4444', 'Overstock': '#3B82F6'}
     bar_colors = [risk_colors.get(r, '#94A3B8') for r in risk_counts.index]
     bars = ax4.bar(range(len(risk_counts)), risk_counts.values,
                    color=bar_colors, edgecolor='white')
@@ -129,7 +129,7 @@ def generate_insights_dashboard(
     path = 'outputs/graphs/15_insights_dashboard.png'
     plt.savefig(path, dpi=120, bbox_inches='tight', facecolor=fig.get_facecolor())
     plt.close()
-    print(f"✅ Insights dashboard saved → {path}")
+    print(f"Insights dashboard saved → {path}")
 
 
 def generate_text_report(
@@ -137,6 +137,7 @@ def generate_text_report(
     inventory_path='outputs/tables/inventory_report.csv',
 ):
     """Write a plain-text executive summary report."""
+
     df_clean = pd.read_csv(cleaned_path, parse_dates=['date'])
     df_inv   = pd.read_csv(inventory_path)
 
@@ -144,28 +145,43 @@ def generate_text_report(
     lines.append("=" * 65)
     lines.append("  RETAIL SALES FORECASTING & INVENTORY OPTIMIZATION")
     lines.append("  EXECUTIVE SUMMARY REPORT")
-    lines.append(f"  Period: {df_clean['date'].min().date()} → {df_clean['date'].max().date()}")
+    lines.append(f"  Period: {df_clean['date'].min().date()} -> {df_clean['date'].max().date()}")
     lines.append("=" * 65)
 
-    lines.append("\n📊 BUSINESS KPIs")
+    # ── KPIs ─────────────────────────
+    lines.append("\nBUSINESS KPIs")
     lines.append(f"  Total Revenue     : ₹{df_clean['revenue'].sum()/1e7:.2f} Crore")
     lines.append(f"  Total Units Sold  : {df_clean['units_sold'].sum():,}")
     lines.append(f"  Avg Daily Revenue : ₹{df_clean['revenue'].mean():,.0f}")
     lines.append(f"  Stockout Rate     : {df_clean['stockout_flag'].mean()*100:.1f}%")
     lines.append(f"  Promo Days        : {df_clean['promotion'].mean()*100:.1f}% of all days")
 
-    lines.append("\n🏪 TOP PERFORMING STORE")
-    top_store = df_clean.groupby('store')['revenue'].sum().idxmax()
-    top_rev   = df_clean.groupby('store')['revenue'].sum().max()
-    lines.append(f"  {top_store}  →  ₹{top_rev/1e6:.1f}M")
+    # ── Top Store ────────────────────
+    lines.append("\nTOP PERFORMING STORE")
+    store_group = df_clean.groupby('store')['revenue'].sum()
 
-    lines.append("\n📦 TOP SELLING CATEGORY")
-    top_cat = df_clean.groupby('category')['units_sold'].sum().idxmax()
-    top_units = df_clean.groupby('category')['units_sold'].sum().max()
-    lines.append(f"  {top_cat}  →  {top_units:,} units")
+    if not store_group.empty:
+        top_store = store_group.idxmax()
+        top_rev   = store_group.max()
+        lines.append(f"  {top_store}  ->  ₹{top_rev/1e6:.1f}M")
+    else:
+        lines.append("  No store data available")
 
-    lines.append("\n🔔 INVENTORY ALERTS")
+    # ── Top Category ─────────────────
+    lines.append("\nTOP SELLING CATEGORY")
+    cat_group = df_clean.groupby('category')['units_sold'].sum()
+
+    if not cat_group.empty:
+        top_cat = cat_group.idxmax()
+        top_units = cat_group.max()
+        lines.append(f"  {top_cat}  ->  {top_units:,} units")
+    else:
+        lines.append("  No category data available")
+
+    # ── Inventory ────────────────────
+    lines.append("\nINVENTORY ALERTS")
     reorder_skus = df_inv[df_inv['needs_reorder']].sort_values('reorder_qty', ascending=False)
+
     lines.append(f"  SKUs needing reorder  : {len(reorder_skus)}")
     lines.append(f"  Total reorder value   : ₹{df_inv['reorder_value'].sum():,.0f}")
     lines.append(f"  Overstock SKUs        : {df_inv['overstock_flag'].sum()}")
@@ -173,11 +189,12 @@ def generate_text_report(
     lines.append("\n  Top 5 Reorder Items:")
     for _, row in reorder_skus.head(5).iterrows():
         lines.append(
-            f"    - {row['product']} ({row['store']})  →  "
+            f"    - {row['product']} ({row['store']})  ->  "
             f"Order {int(row['reorder_qty'])} units  (₹{row['reorder_value']:,.0f})"
         )
 
-    lines.append("\n💡 BUSINESS RECOMMENDATIONS")
+    # ── Recommendations ──────────────
+    lines.append("\nBUSINESS RECOMMENDATIONS")
     lines.append("  1. Increase safety stock for Electronics in Oct–Dec (festival season).")
     lines.append("  2. Run targeted promotions for Grocery items during Jul–Aug.")
     lines.append("  3. Reduce overstock of slow-moving Home & Kitchen items.")
@@ -185,15 +202,13 @@ def generate_text_report(
     lines.append("  5. Implement automated reorder triggers at the computed ROP levels.")
 
     lines.append("\n" + "=" * 65)
+
+    # ── Final Write ──────────────────
     report_text = "\n".join(lines)
 
     path = 'outputs/reports/executive_summary.txt'
-    with open(path, 'w') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         f.write(report_text)
+
     print(report_text)
-    print(f"\n✅ Executive summary saved → {path}")
-
-
-if __name__ == '__main__':
-    generate_insights_dashboard()
-    generate_text_report()
+    print(f"\nExecutive summary saved -> {path}")
