@@ -124,7 +124,7 @@ def generate_inventory_report(
     summary.loc[
         (summary['avg_closing_stock'] > summary['avg_daily_demand'] * 60),
         'risk_flag'
-    ] = '📦 Overstock'
+    ] = 'Overstock'
 
     # ── Overstock flag ────────────────────────────────────────────
     summary['overstock_flag'] = summary['avg_closing_stock'] > (summary['avg_daily_demand'] * 60)
@@ -136,7 +136,7 @@ def generate_inventory_report(
 
     # ── Save report ───────────────────────────────────────────────
     summary.to_csv('outputs/tables/inventory_report.csv', index=False)
-    print(f"\n✅ Inventory report saved → outputs/tables/inventory_report.csv")
+    print(f"\nInventory report saved → outputs/tables/inventory_report.csv")
     print(f"   Total SKUs (product×store): {len(summary)}")
 
     reorder_count   = summary['needs_reorder'].sum()
@@ -171,7 +171,7 @@ def plot_reorder_alerts(df):
         color=colors, edgecolor='white'
     )
     ax.bar_label(bars, labels=[f'{int(v)} units' for v in reorder_df['reorder_qty']], padding=4)
-    ax.set_title('🔔 Top Reorder Alerts — Recommended Order Quantities', fontsize=13, fontweight='bold')
+    ax.set_title('Top Reorder Alerts — Recommended Order Quantities', fontsize=13, fontweight='bold')
     ax.set_xlabel('Recommended Order Quantity (EOQ)')
     red_patch    = mpatches.Patch(color='#EF4444', label='High Stockout Risk (>10%)')
     yellow_patch = mpatches.Patch(color='#F59E0B', label='Normal Reorder')
