@@ -25,7 +25,7 @@ try:
     XGBOOST_AVAILABLE = True
 except ImportError:
     XGBOOST_AVAILABLE = False
-    print("⚠️  XGBoost not installed — using Random Forest as best model")
+    print(" XGBoost not installed — using Random Forest as best model")
 
 os.makedirs('models', exist_ok=True)
 os.makedirs('outputs/graphs', exist_ok=True)
@@ -209,7 +209,7 @@ def train_models(filepath='data/features.csv'):
         scaler.transform(X_test) if best_name == 'Linear Regression' else X_test
     ))
 
-    print(f"\n🏆 Best Model: {best_name}  (RMSE: {best_rmse:.2f})")
+    print(f"\nBest Model: {best_name}  (RMSE: {best_rmse:.2f})")
 
     # ── Save predictions CSV ─────────────────────────────────────
     pred_df = df.iloc[split:][['date','store','product','category']].copy()
@@ -228,7 +228,7 @@ def train_models(filepath='data/features.csv'):
     joblib.dump(best_model, 'models/best_model.pkl')
     if best_name == 'Linear Regression':
         joblib.dump(scaler, 'models/scaler.pkl')
-    print(f"✅ Model saved → models/best_model.pkl")
+    print(f"Model saved → models/best_model.pkl")
 
     # ── Results table ────────────────────────────────────────────
     res_df = pd.DataFrame(results)
