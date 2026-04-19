@@ -63,7 +63,7 @@ def load_and_clean(filepath='data/retail_sales_data.csv'):
     # ── 8. Save clean data ───────────────────────────
     os.makedirs('data', exist_ok=True)
     df.to_csv('data/cleaned_data.csv', index=False)
-    print("\n✅ Clean data saved → data/cleaned_data.csv")
+    print("\nClean data saved → data/cleaned_data.csv")
     return df
 
 
