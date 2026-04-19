@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Retail Intelligence Dashboard",
-    page_icon="🛒",
+    # page_icon="🛒",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -73,12 +73,12 @@ def check_data_exists():
 
 # ── App ────────────────────────────────────────────────────────────────────────
 def main():
-    st.title("🛒 Retail Sales Forecasting & Inventory Optimization")
+    st.title("Retail Sales Forecasting & Inventory Optimization")
     st.caption("AI-powered demand forecasting and inventory intelligence system")
 
     missing = check_data_exists()
     if missing:
-        st.error("⚠️ Data files not found. Please run `python main.py` first.")
+        st.error("Data files not found. Please run `python main.py` first.")
         st.code("python main.py", language="bash")
         st.stop()
 
@@ -87,7 +87,7 @@ def main():
     df_pred  = load_predictions()
 
     # ── Sidebar filters ────────────────────────────────────────────
-    st.sidebar.header("🔧 Filters")
+    st.sidebar.header("Filters")
     stores = ['All'] + sorted(df['store'].unique().tolist())
     cats   = ['All'] + sorted(df['category'].unique().tolist())
     years  = ['All'] + sorted(df['year'].unique().tolist())
@@ -102,7 +102,7 @@ def main():
     if sel_year  != 'All': df_f = df_f[df_f['year']     == int(sel_year)]
 
     # ── KPI row ────────────────────────────────────────────────────
-    st.markdown("### 📊 Key Performance Indicators")
+    st.markdown("### Key Performance Indicators")
     k1, k2, k3, k4, k5 = st.columns(5)
     k1.metric("Total Revenue",    f"₹{df_f['revenue'].sum()/1e6:.1f}M")
     k2.metric("Units Sold",       f"{df_f['units_sold'].sum():,}")
@@ -116,7 +116,7 @@ def main():
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.markdown("#### 📈 Monthly Revenue Trend")
+        st.markdown("#### Monthly Revenue Trend")
         monthly = df_f.groupby(['year', 'month'])['revenue'].sum().reset_index()
         monthly['period'] = pd.to_datetime(
             monthly['year'].astype(str) + '-' + monthly['month'].astype(str).str.zfill(2)
@@ -137,7 +137,7 @@ def main():
         plt.close()
 
     with col2:
-        st.markdown("#### 🥧 Category Share")
+        st.markdown("#### Category Share")
         cat_rev = df_f.groupby('category')['revenue'].sum()
         colors  = ['#2563EB', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6']
         fig2, ax2 = plt.subplots(figsize=(4.5, 3.5))
@@ -153,7 +153,7 @@ def main():
     col3, col4 = st.columns(2)
 
     with col3:
-        st.markdown("#### 🔮 Actual vs Predicted Units Sold")
+        st.markdown("#### Actual vs Predicted Units Sold")
         sample = df_pred.sample(min(250, len(df_pred)), random_state=1).sort_values('date')
         fig3, ax3 = plt.subplots(figsize=(6, 3.5))
         ax3.plot(sample['actual_units'].values,    label='Actual',    color='#1E40AF', linewidth=1.5)
@@ -169,7 +169,7 @@ def main():
         plt.close()
 
     with col4:
-        st.markdown("#### 🌡️ Seasonality Heatmap")
+        st.markdown("#### Seasonality Heatmap")
         pivot = df_f.pivot_table(values='units_sold', index='category', columns='month', aggfunc='mean')
         pivot.columns = ['Jan','Feb','Mar','Apr','May','Jun',
                          'Jul','Aug','Sep','Oct','Nov','Dec']
@@ -185,7 +185,7 @@ def main():
 
     # ── Inventory Alerts Table ─────────────────────────────────────
     st.markdown("---")
-    st.markdown("### 🔔 Inventory Alerts & Reorder Recommendations")
+    st.markdown("### Inventory Alerts & Reorder Recommendations")
 
     inv_filter = df_inv.copy()
     if sel_store != 'All': inv_filter = inv_filter[inv_filter['store'] == sel_store]
@@ -217,7 +217,7 @@ def main():
     )
 
     # ── Full inventory table (expandable) ─────────────────────────
-    with st.expander("📋 View Full Inventory Report"):
+    with st.expander("View Full Inventory Report"):
         st.dataframe(inv_filter[display_cols], use_container_width=True)
 
     st.markdown("---")
